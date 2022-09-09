@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Platforms>x86;x64;arm64</Platforms>
+		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+		<CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
+		<CsWinRTFilters>
+			-include Windows
+		</CsWinRTFilters>
+		<DefineConstants>UAC_VERSION_15</DefineConstants>
+		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Remove="Microsoft.Windows.SDK.NET.Ref" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.0-private.0" />
+		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22621.2" />
+	</ItemGroup>
+
+	<Target Name="RemoveSystemRuntimeWindowsRuntime" BeforeTargets="BeforeCompile" AfterTargets="ResolveReferences">
+		<ItemGroup>
+			<SRWRRemovedReferences Include="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
+			<ReferencePath Remove="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
+			<ReferencePathWithRefAssemblies Remove="@(SRWRRemovedReferences)" Condition="'%(SRWRRemovedReferences.Filename)%(SRWRRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
+			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
+			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))"/>
+		</ItemGroup>
+	</Target>
+
+</Project>
