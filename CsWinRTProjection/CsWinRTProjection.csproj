@@ -12,7 +12,6 @@
 		</CsWinRTFilters>
 		<DefineConstants>UAC_VERSION_15</DefineConstants>
 		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
-		<NoWarn>0109</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
