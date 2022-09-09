@@ -24,7 +24,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build -c Release -r win10-${{ matrix.arch }} --no-self-contained --no-restore
+      run: dotnet build CsWinRTProjection/CsWinRTProjection.csproj -c Release -r win10-${{ matrix.arch }} --no-self-contained --no-restore
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
