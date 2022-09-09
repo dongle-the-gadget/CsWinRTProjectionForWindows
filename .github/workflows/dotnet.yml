@@ -1,0 +1,32 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+  
+    strategy:
+      matrix:
+        arch: [ "x64", "x86", "arm64" ]
+  
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build -c Release -r win10-${{ matrix.arch }} --no-restore
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: WindowsProjection-${{ matrix.arch }}.dll
+        path: CsWinRTProjection/Release/net6.0-windows10.0.22621.0/win10-${{ matrix.arch }}/Microsoft.Windows.Full.SDK.NET.dll
