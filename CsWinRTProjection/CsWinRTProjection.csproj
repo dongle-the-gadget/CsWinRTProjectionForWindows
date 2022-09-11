@@ -24,7 +24,7 @@
 		<FrameworkReference Remove="Microsoft.Windows.SDK.NET.Ref" />
 		
 		<!-- C#/WinRT NuGet, we are using a private version with support for WUX. -->
-		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.0-private.0" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0" />
 		
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22621.2" />
