@@ -2,14 +2,10 @@
 
 	<PropertyGroup>
 		<!-- Set target framework to .NET 6 -->
-		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
-		
-		<!-- Specify the platforms -->
-		<Platforms>x86;x64;arm64</Platforms>
-		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+		<TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
 		
 		<!-- Configure C#/WinRT -->
-		<CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
+		<CsWinRTWindowsMetadata>10.0.22000.0</CsWinRTWindowsMetadata>
 		<CsWinRTFilters>
 			-include Windows
 		</CsWinRTFilters>
@@ -27,7 +23,7 @@
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0" />
 		
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
-		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22621.2" />
+		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" />
 	</ItemGroup>
 
 	<!-- Since Microsoft.Windows.SDK.Contracts come with System.Runtime.WindowsRuntime, which provide some basic classes for WinRT. -->
@@ -39,7 +35,7 @@
 			<ReferencePath Remove="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 			<ReferencePathWithRefAssemblies Remove="@(SRWRRemovedReferences)" Condition="'%(SRWRRemovedReferences.Filename)%(SRWRRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
 			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
-			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))"/>
+			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
 	</Target>
 
