@@ -22,6 +22,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet publish CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-self-contained --no-restore /clp:ErrorsOnly
+    - name: Cleanup build output
+      run: Get-ChildItem -Path CsWinRTProjection\bin -Include System.Runtime.*.dll -File -Recurse | foreach { $_.Delete()}
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
