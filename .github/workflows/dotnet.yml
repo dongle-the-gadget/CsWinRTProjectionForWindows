@@ -25,5 +25,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: WindowsProjection-${{ matrix.arch }}
-        path: CsWinRTProjection/bin/Release/net6.0-windows10.0.22000.0
+        name: WindowsProjection
+        path: CsWinRTProjection/bin
