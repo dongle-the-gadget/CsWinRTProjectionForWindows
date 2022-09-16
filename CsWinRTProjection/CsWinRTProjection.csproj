@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<!-- Set target framework to .NET 6 -->
 		<TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
-		
+
 		<!-- Configure C#/WinRT -->
 		<CsWinRTWindowsMetadata>10.0.22000.0</CsWinRTWindowsMetadata>
 		<CsWinRTFilters>
@@ -39,19 +39,21 @@
 	<ItemGroup>
 		<!-- Remove the built-in Microsoft.Windows.SDK.NET.Ref projection to prevent conflicts with the C#/WinRT generated projection. -->
 		<FrameworkReference Remove="Microsoft.Windows.SDK.NET.Ref" />
-		
+
 		<!-- C#/WinRT NuGet, we are using a private version with support for WUX. -->
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0" />
-		
+
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="all" PrivateAssets="all" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Content Include="$(OutDir)\WinRT.Runtime.dll">
-			<Pack>true</Pack>
-			<PackagePath>lib\$(TargetFramework)</PackagePath>
-		</Content>
-	</ItemGroup>
+	<PropertyGroup>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+	</PropertyGroup>
+	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
 
 </Project>
