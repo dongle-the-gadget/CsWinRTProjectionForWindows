@@ -2,14 +2,14 @@
 
 	<PropertyGroup>
 		<!-- Set target framework to .NET 6 -->
-		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
 		
 		<!-- Specify the platforms -->
 		<Platforms>x86;x64;arm64</Platforms>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		
 		<!-- Configure C#/WinRT -->
-		<CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
+		<CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
 		<CsWinRTFilters>
 			-include Windows
 		</CsWinRTFilters>
@@ -17,6 +17,24 @@
 		
 		<!-- Set the assembly name (to prevent conflicts with projects using C#/WinRT) -->
 		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
+	
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+	
+		<PackageId>NET6.WindowsSDK</PackageId>
+	
+		<Authors>Dongle</Authors>
+	
+		<Company />
+	
+		<Description>A C#/WinRT projection for the Windows SDK.</Description>
+	
+		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+	
+		<RepositoryUrl>https://github.com/dongle-the-gadget/CsWinRTProjectionForWindows</RepositoryUrl>
+	
+		<RepositoryType>git</RepositoryType>
+	
+		<PackageTags>cswinrt;windows</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -39,8 +57,13 @@
 			<ReferencePath Remove="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 			<ReferencePathWithRefAssemblies Remove="@(SRWRRemovedReferences)" Condition="'%(SRWRRemovedReferences.Filename)%(SRWRRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
 			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
-			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))"/>
+			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
+	</Target>
+	
+	<Target Name="RemoveSysRuntimeFromOutput" BeforeTargets="GenerateNuspec">
+		<Delete Files="$(OutDir)/**/System.*.dll"/>
+		<Delete Files="$(OutDir)/System.*.dll"/>
 	</Target>
 
 </Project>
