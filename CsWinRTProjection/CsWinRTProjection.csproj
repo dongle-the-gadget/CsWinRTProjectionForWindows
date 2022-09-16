@@ -31,6 +31,10 @@
 		<RepositoryType>git</RepositoryType>
 	
 		<PackageTags>cswinrt;windows</PackageTags>
+
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,14 +42,10 @@
 		<FrameworkReference Remove="Microsoft.Windows.SDK.NET.Ref" />
 		
 		<!-- C#/WinRT NuGet, we are using a private version with support for WUX. -->
-		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0">
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0"/>
 		
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
-		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196">
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196"/>
 	</ItemGroup>
 
 	<!-- Since Microsoft.Windows.SDK.Contracts come with System.Runtime.WindowsRuntime, which provide some basic classes for WinRT. -->
@@ -59,11 +59,6 @@
 			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
 			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
-	</Target>
-	
-	<Target Name="RemoveSysRuntimeFromOutput" BeforeTargets="GenerateNuspec">
-		<Delete Files="$(OutDir)/**/System.*.dll"/>
-		<Delete Files="$(OutDir)/System.*.dll"/>
 	</Target>
 
 </Project>
