@@ -21,7 +21,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-self-contained --no-restore /clp:ErrorsOnly
+      run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-restore /clp:ErrorsOnly
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
