@@ -57,7 +57,7 @@
 
 		<Content Include="Dongle.WindowsSDK.NET.props">
 			<Pack>true</Pack>
-			<PackagePath>build\$(TargetFramework)</PackagePath>
+			<PackagePath>buildTransitive</PackagePath>
 		</Content>
 	</ItemGroup>
 
