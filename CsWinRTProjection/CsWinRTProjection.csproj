@@ -15,7 +15,7 @@
 
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
-		<PackageId>WindowsSDK.NET</PackageId>
+		<PackageId>Dongle.WindowsSDK.NET</PackageId>
 
 		<Authors>Dongle</Authors>
 
@@ -53,6 +53,10 @@
 		<Content Include="$(OutDir)\WinRT.Runtime.dll">
 			<Pack>true</Pack>
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
+		</Content>
+
+		<Content Include="Dongle.WindowsSDK.NET.props">
+			<Pack>true</Pack>
 		</Content>
 	</ItemGroup>
 
