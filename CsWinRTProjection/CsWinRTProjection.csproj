@@ -11,6 +11,8 @@
 		</CsWinRTFilters>
 		<DefineConstants>UAC_VERSION_15</DefineConstants>
 
+		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
+
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
@@ -24,18 +26,5 @@
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="all"/>
 	</ItemGroup>
-
-	<!-- Since Microsoft.Windows.SDK.Contracts come with System.Runtime.WindowsRuntime, which provide some basic classes for WinRT. -->
-	<!-- It therefore conflicts with WinRT.Runtime (part of C#/WinRT). -->
-	<!-- This target removes System.Runtime.WindowsRuntime so that WinRT.Runtime would be used instead. -->
-	<Target Name="RemoveSystemRuntimeWindowsRuntime" BeforeTargets="BeforeCompile" AfterTargets="ResolveReferences">
-		<ItemGroup>
-			<SRWRRemovedReferences Include="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
-			<ReferencePath Remove="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
-			<ReferencePathWithRefAssemblies Remove="@(SRWRRemovedReferences)" Condition="'%(SRWRRemovedReferences.Filename)%(SRWRRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
-			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
-			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
-		</ItemGroup>
-	</Target>
 
 </Project>
