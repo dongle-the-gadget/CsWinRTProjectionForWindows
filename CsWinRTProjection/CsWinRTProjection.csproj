@@ -27,4 +27,11 @@
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="all"/>
 	</ItemGroup>
 
+	<ItemGroup>
+		<Content Include="$(OutDir)\WinRT.Runtime.dll">
+			<Pack>true</Pack>
+			<PackagePath>lib</PackagePath>
+		</Content>
+	</ItemGroup>
+
 </Project>
