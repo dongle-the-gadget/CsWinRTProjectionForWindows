@@ -57,6 +57,7 @@
 
 		<Content Include="Dongle.WindowsSDK.NET.props">
 			<Pack>true</Pack>
+			<PackagePath>build</PackagePath>
 		</Content>
 	</ItemGroup>
 
