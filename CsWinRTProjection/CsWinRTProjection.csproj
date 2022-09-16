@@ -11,7 +11,7 @@
 		</CsWinRTFilters>
 		<DefineConstants>UAC_VERSION_15</DefineConstants>
 
-		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
+		<AssemblyName>Microsoft.Windows.SDK.NET</AssemblyName>
 
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
@@ -53,11 +53,6 @@
 		<Content Include="$(OutDir)\WinRT.Runtime.dll">
 			<Pack>true</Pack>
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
-		</Content>
-
-		<Content Include="Dongle.WindowsSDK.NET.props">
-			<Pack>true</Pack>
-			<PackagePath>buildTransitive</PackagePath>
 		</Content>
 	</ItemGroup>
 
