@@ -22,7 +22,7 @@
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0"/>
 		
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
-		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196"/>
+		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="all"/>
 	</ItemGroup>
 
 	<!-- Since Microsoft.Windows.SDK.Contracts come with System.Runtime.WindowsRuntime, which provide some basic classes for WinRT. -->
@@ -36,10 +36,6 @@
 			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
 			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
-	</Target>
-	
-	<Target Name="RemoveRuntimeDLL" AfterTargets="Build">
-		<Delete Files="$(OutDir)/System*.dll"/>
 	</Target>
 
 </Project>
