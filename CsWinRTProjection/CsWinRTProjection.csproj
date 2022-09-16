@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<!-- Set target framework to .NET 6 -->
-		<TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.22000</TargetFramework>
 
 		<!-- Configure C#/WinRT -->
 		<CsWinRTWindowsMetadata>10.0.22000.0</CsWinRTWindowsMetadata>
@@ -47,10 +47,6 @@
 
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="all" />
-		<PackageReference Include="Teronis.MSBuild.Packaging.ProjectBuildInPackage" Version="1.0.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 	</ItemGroup>
 
 </Project>
