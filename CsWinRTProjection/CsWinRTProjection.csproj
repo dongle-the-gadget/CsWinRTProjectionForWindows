@@ -55,9 +55,8 @@
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
 		</Content>
 
-		<Content Include="Dongle.WindowsSDK.NET.props">
+		<Content Include="Dongle.WindowsSDK.NET.targets">
 			<Pack>true</Pack>
-			<PackagePath>build</PackagePath>
 		</Content>
 	</ItemGroup>
 
