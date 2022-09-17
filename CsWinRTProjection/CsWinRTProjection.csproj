@@ -11,7 +11,7 @@
 		</CsWinRTFilters>
 		<DefineConstants>UAC_VERSION_15</DefineConstants>
 
-		<AssemblyName>Microsoft.Windows.SDK.NET</AssemblyName>
+		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
 
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
@@ -46,7 +46,7 @@
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-private.0" PrivateAssets="all" />
 
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
-		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="all" />
+		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.196" ExcludeAssets="buildTransitive" />
 	</ItemGroup>
 
 	<ItemGroup>
