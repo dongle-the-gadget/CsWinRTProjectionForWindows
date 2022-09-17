@@ -21,7 +21,7 @@ jobs:
     - name: Build
       run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-restore /clp:ErrorsOnly
     - name: Publish
-      run: dotnet nuget push CsWinRTProjection/bin/Release/*.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "CsWinRTProjection\bin\Release\*.nupkg" -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
