@@ -1,11 +1,10 @@
-name: .NET
+name: Projection test
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch:
 
 jobs:
   build:
@@ -21,7 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Get shortened SHA
-      if: ${{ github.event_name }} != 'workflow_dispatch'
       uses: benjlevesque/short-sha@v1.2
       id: short-sha
     - name: Build
