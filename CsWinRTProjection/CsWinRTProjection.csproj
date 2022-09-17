@@ -27,17 +27,21 @@
 
 		<RepositoryUrl>https://github.com/dongle-the-gadget/CsWinRTProjectionForWindows</RepositoryUrl>
 
+		<ContractsVersion>10.0.22000.196</ContractsVersion>
+
 		<PackageTags>cswinrt;windows</PackageTags>
 
-		<AssemblyVersion>10.0.22000.196</AssemblyVersion>
+		<AssemblyVersion>$(ContractsVersion)</AssemblyVersion>
 
-		<FileVersion>10.0.22000.196</FileVersion>
+		<FileVersion>$(ContractsVersion)</FileVersion>
 
-		<VersionPrefix>10.0.22000.196</VersionPrefix>
+		<VersionPrefix>$(ContractsVersion)</VersionPrefix>
 
 		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
 		
 		<IsTrimmable>true</IsTrimmable>
+		
+		<Version Condition="$(VersionSuffix) != ''">$(VersionPrefix)-$(VersionSuffix)</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -69,7 +73,7 @@
 			<ReferencePath Remove="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 			<ReferencePathWithRefAssemblies Remove="@(SRWRRemovedReferences)" Condition="'%(SRWRRemovedReferences.Filename)%(SRWRRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
 			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
-			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))"/>
+			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
 	</Target>
 
