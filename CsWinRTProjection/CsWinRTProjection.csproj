@@ -36,6 +36,8 @@
 		<VersionPrefix>10.0.22000.196</VersionPrefix>
 
 		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+		
+		<IsTrimmable>true</IsTrimmable>
 	</PropertyGroup>
 
 	<ItemGroup>
