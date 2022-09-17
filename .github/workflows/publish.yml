@@ -1,0 +1,27 @@
+name: Projection publish
+
+
+on: [ workflow_dispatch ]
+
+
+jobs:
+  build:
+  
+    runs-on: windows-latest
+
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-restore /clp:ErrorsOnly
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: WindowsProjection
+        path: CsWinRTProjection/bin/Release/*.nupkg
