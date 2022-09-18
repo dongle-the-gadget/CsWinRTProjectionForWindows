@@ -1,14 +1,21 @@
 name: Projection publish
 
-
-on: [ workflow_dispatch ]
-
+on:
+  workflow_dispatch:
+    inputs:
+      contractVersion:
+        description: 'SDK Contract version'
+        required: true
+        type: string
+      targetVersion:
+        description: 'Published version'
+        required: false
+        type: string
 
 jobs:
   build:
   
     runs-on: windows-latest
-
 
     steps:
     - uses: actions/checkout@v3
@@ -17,9 +24,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore /p:ContractsVersion=${{ inputs.contractVersion }} /p:TargetVersion="${{ inputs.targetVersion }}"
     - name: Build
-      run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-restore /clp:ErrorsOnly
+      run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-restore /clp:ErrorsOnly /p:ContractsVersion=${{ inputs.contractVersion }} /p:TargetVersion="${{ inputs.targetVersion }}"
     - name: Publish
       run: dotnet nuget push "CsWinRTProjection\bin\Release\*.nupkg" -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
     - name: Upload artifacts

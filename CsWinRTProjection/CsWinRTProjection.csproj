@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<!-- Putting it here just for the project to load -->
+		<ContractsVersion Condition="$(ContractsVersion) == ''">10.0.0.0</ContractsVersion>
+		
 		<!-- Set target framework to .NET 6 -->
-		<TargetFramework>net6.0-windows10.0.19041</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.$(ContractsVersion.Split('.')[2])</TargetFramework>
 
 		<!-- Configure C#/WinRT -->
 		<CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
@@ -12,35 +15,25 @@
 		<DefineConstants>UAC_VERSION_10</DefineConstants>
 
 		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
-
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-
 		<PackageId>Dongle.WindowsSDK.NET</PackageId>
-
 		<Authors>Dongle</Authors>
-
 		<Company />
-
 		<Description>A C#/WinRT projection for the Windows.* namespace.</Description>
-
 		<Copyright>Unlicensed work</Copyright>
-
 		<RepositoryUrl>https://github.com/dongle-the-gadget/CsWinRTProjectionForWindows</RepositoryUrl>
-
-		<ContractsVersion>10.0.19041.2</ContractsVersion>
-
 		<PackageTags>cswinrt;windows</PackageTags>
-
-		<AssemblyVersion>$(ContractsVersion)</AssemblyVersion>
-
-		<FileVersion>$(ContractsVersion)</FileVersion>
-
-		<VersionPrefix>$(ContractsVersion)</VersionPrefix>
-
+		
+		<AssemblyVersion Condition="$(TargetVersion) == ''">$(ContractsVersion)</AssemblyVersion>
+		<FileVersion Condition="$(TargetVersion) == ''">$(ContractsVersion)</FileVersion>
+		<VersionPrefix Condition="$(TargetVersion) == ''">$(ContractsVersion)</VersionPrefix>
+		
+		<AssemblyVersion Condition="$(TargetVersion) != ''">$(TargetVersion)</AssemblyVersion>
+		<FileVersion Condition="$(TargetVersion) != ''">$(TargetVersion)</FileVersion>
+		<VersionPrefix Condition="$(TargetVersion) != ''">$(TargetVersion)</VersionPrefix>
+		
 		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
-		
 		<IsTrimmable>true</IsTrimmable>
-		
 		<Version Condition="$(VersionSuffix) != ''">$(VersionPrefix)-$(VersionSuffix)</Version>
 	</PropertyGroup>
 
