@@ -31,5 +31,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: WindowsProjection
+        name: WindowsProjection-${{ matrix.contract-version }}
         path: CsWinRTProjection/bin/Release/*.nupkg
