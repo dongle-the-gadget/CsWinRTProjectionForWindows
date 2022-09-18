@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        contract-version: [ "10.0.19041.1", "10.0.22000.196", "10.0.22621.2" ]
+        contract-version: [ "10.0.19041.2", "10.0.22000.196", "10.0.22621.2" ]
 
     steps:
     - uses: actions/checkout@v3
