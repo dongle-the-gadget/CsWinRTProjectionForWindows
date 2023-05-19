@@ -18,13 +18,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore /p:ContractsVersion=${{ matrix.contract-version }}
     - name: Get shortened SHA
-      uses: benjlevesque/short-sha@v1.2
+      uses: benjlevesque/short-sha@v2.2
       id: short-sha
     - name: Build
       run: dotnet pack CsWinRTProjection/CsWinRTProjection.csproj -c Release --no-restore /clp:ErrorsOnly /p:VersionSuffix=${{ steps.short-sha.outputs.sha }} /p:ContractsVersion=${{ matrix.contract-version }}
