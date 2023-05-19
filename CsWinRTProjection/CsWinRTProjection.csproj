@@ -9,9 +9,9 @@
 
 		<!-- Configure C#/WinRT -->
 		<CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
-		<CsWinRTFilters>
-			-include Windows
-		</CsWinRTFilters>
+		<CsWinRTIncludes>Windows.UI.Colors;Windows.UI.IColors;Windows.UI.ColorHelper;Windows.UI.IColorHelper;Windows.UI.Xaml;Windows.UI.Text</CsWinRTIncludes>
+		<CsWinRTExcludes>Windows;Windows.UI.Color;Windows.UI.Text.Core;Windows.UI.Text.FontStretch;Windows.UI.Text.FontStyle;Windows.UI.Text.FontWeight;Windows.UI.Text.UnderlineType
+		</CsWinRTExcludes>
 		<DefineConstants>UAC_VERSION_10</DefineConstants>
 
 		<AssemblyName>Microsoft.Windows.Full.SDK.NET</AssemblyName>
@@ -38,9 +38,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- Remove the built-in Microsoft.Windows.SDK.NET.Ref projection to prevent conflicts with the C#/WinRT generated projection. -->
-		<FrameworkReference Remove="Microsoft.Windows.SDK.NET.Ref" />
-
 		<!-- C#/WinRT NuGet, we are using a private version with support for WUX. -->
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0-private.0" PrivateAssets="all" />
 
@@ -53,11 +50,6 @@
 			<Pack>true</Pack>
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
 		</Content>
-	
-		<Content Include="Dongle.WindowsSDK.NET.targets">
-			<Pack>true</Pack>
-			<PackagePath>buildTransitive</PackagePath>
-		</Content>
 	</ItemGroup>
 	 
 	 <Target Name="RemoveSystemRuntimeWindowsRuntime" BeforeTargets="BeforeCompile" AfterTargets="ResolveReferences">
@@ -69,5 +61,16 @@
 			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
 	</Target>
+
+	<Target Name="ReplaceTextInFile" DependsOnTargets="CsWinRTIncludeProjection" BeforeTargets="BeforeCompile;GenerateTargetFrameworkMonikerAttribute">
+		<PropertyGroup>
+			<CsWinRTGen>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)', 'Generated Files'))</CsWinRTGen>
+		</PropertyGroup>
+		<PropertyGroup>
+        	<FileContent>$([System.IO.File]::ReadAllText('$(CsWinRTGen)\Windows.UI.cs'))</FileContent>
+        	<Index>$(FileContent.IndexOf('#pragma warning restore CA1416'))</Index>
+    	</PropertyGroup>
+    	<WriteLinesToFile File="$(CsWinRTGen)Windows.UI.cs" Lines="$(FileContent.Substring(0, $(Index)))" Overwrite="true" />
+  	</Target>
 
 </Project>
