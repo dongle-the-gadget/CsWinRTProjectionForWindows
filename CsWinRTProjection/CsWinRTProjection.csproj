@@ -23,7 +23,7 @@
 		<RepositoryUrl>https://github.com/dongle-the-gadget/CsWinRTProjectionForWindows</RepositoryUrl>
 		<PackageTags>cswinrt;windows</PackageTags>
 		
-		<TargetVersion Condition="$(TargetVersion) == ''">10.0.$(SdkBuild).0</AssemblyVersion>
+		<TargetVersion Condition="$(TargetVersion) == ''">10.0.$(SdkBuild).0</TargetVersion>
 		
 		<AssemblyVersion>$(TargetVersion)</AssemblyVersion>
 		<FileVersion>$(TargetVersion)</FileVersion>
