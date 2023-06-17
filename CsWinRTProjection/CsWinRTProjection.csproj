@@ -8,7 +8,7 @@
 		<TargetFramework>net6.0-windows10.0.$(ContractsVersion.Split('.')[2])</TargetFramework>
 
 		<!-- Configure C#/WinRT -->
-		<CsWinRTWindowsMetadata>10.0.$(ContractsVersion.Split('.')[2]).0</CsWinRTWindowsMetadata>
+		<CsWinRTWindowsMetadata>sdk+</CsWinRTWindowsMetadata>
 		<CsWinRTIncludes>Windows.UI.Colors;Windows.UI.IColors;Windows.UI.ColorHelper;Windows.UI.IColorHelper;Windows.UI.Xaml;Windows.UI.Text</CsWinRTIncludes>
 		<CsWinRTExcludes>Windows;Windows.UI.Color;Windows.UI.Text.Core;Windows.UI.Text.FontStretch;Windows.UI.Text.FontStyle;Windows.UI.Text.FontWeight;Windows.UI.Text.UnderlineType</CsWinRTExcludes>
 		<DefineConstants>UAC_VERSION_10</DefineConstants>
@@ -41,7 +41,7 @@
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0-private.0" PrivateAssets="all" />
 
 		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
-		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="$(ContractsVersion)" PrivateAssets="all" />
+		<!-- <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="$(ContractsVersion)" PrivateAssets="all" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -50,7 +50,8 @@
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
 		</Content>
 	</ItemGroup>
-	 
+
+<!--
 	 <Target Name="RemoveSystemRuntimeWindowsRuntime" BeforeTargets="BeforeCompile" AfterTargets="ResolveReferences">
 		<ItemGroup>
 			<SRWRRemovedReferences Include="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
@@ -60,6 +61,7 @@
 			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
 		</ItemGroup>
 	</Target>
+-->
 
 	<Target Name="ReplaceTextInFile" DependsOnTargets="CsWinRTIncludeProjection" BeforeTargets="BeforeCompile;GenerateTargetFrameworkMonikerAttribute">
 		<PropertyGroup>
