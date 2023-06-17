@@ -2,13 +2,13 @@
 
 	<PropertyGroup>
 		<!-- Putting it here just for the project to load -->
-		<ContractsVersion Condition="$(ContractsVersion) == ''">10.0.19041.0</ContractsVersion>
+		<SdkBuild Condition="$(SdkBuild) == ''">19041</SdkVersion>
 		
 		<!-- Set target framework to .NET 6 -->
-		<TargetFramework>net6.0-windows10.0.$(ContractsVersion.Split('.')[2])</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.$(SdkBuild)</TargetFramework>
 
 		<!-- Configure C#/WinRT -->
-		<CsWinRTWindowsMetadata>sdk+</CsWinRTWindowsMetadata>
+		<CsWinRTWindowsMetadata>10.0.$(SdkBuild).0+</CsWinRTWindowsMetadata>
 		<CsWinRTIncludes>Windows.UI.Colors;Windows.UI.IColors;Windows.UI.ColorHelper;Windows.UI.IColorHelper;Windows.UI.Xaml;Windows.UI.Text</CsWinRTIncludes>
 		<CsWinRTExcludes>Windows;Windows.UI.Color;Windows.UI.Text.Core;Windows.UI.Text.FontStretch;Windows.UI.Text.FontStyle;Windows.UI.Text.FontWeight;Windows.UI.Text.UnderlineType</CsWinRTExcludes>
 		<DefineConstants>UAC_VERSION_10</DefineConstants>
@@ -23,13 +23,11 @@
 		<RepositoryUrl>https://github.com/dongle-the-gadget/CsWinRTProjectionForWindows</RepositoryUrl>
 		<PackageTags>cswinrt;windows</PackageTags>
 		
-		<AssemblyVersion Condition="$(TargetVersion) == ''">$(ContractsVersion)</AssemblyVersion>
-		<FileVersion Condition="$(TargetVersion) == ''">$(ContractsVersion)</FileVersion>
-		<VersionPrefix Condition="$(TargetVersion) == ''">$(ContractsVersion)</VersionPrefix>
+		<TargetVersion Condition="$(TargetVersion) == ''">10.0.$(SdkBuild).0</AssemblyVersion>
 		
-		<AssemblyVersion Condition="$(TargetVersion) != ''">$(TargetVersion)</AssemblyVersion>
-		<FileVersion Condition="$(TargetVersion) != ''">$(TargetVersion)</FileVersion>
-		<VersionPrefix Condition="$(TargetVersion) != ''">$(TargetVersion)</VersionPrefix>
+		<AssemblyVersion>$(TargetVersion)</AssemblyVersion>
+		<FileVersion>$(TargetVersion)</FileVersion>
+		<VersionPrefix>$(TargetVersion)</VersionPrefix>
 		
 		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
 		<IsTrimmable>true</IsTrimmable>
@@ -39,9 +37,6 @@
 	<ItemGroup>
 		<!-- C#/WinRT NuGet, we are using a private version with support for WUX. -->
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0-private.0" PrivateAssets="all" />
-
-		<!-- Windows SDK Contracts, used as input WinMDs for C#/WinRT -->
-		<!-- <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="$(ContractsVersion)" PrivateAssets="all" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -50,18 +45,6 @@
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
 		</Content>
 	</ItemGroup>
-
-<!--
-	 <Target Name="RemoveSystemRuntimeWindowsRuntime" BeforeTargets="BeforeCompile" AfterTargets="ResolveReferences">
-		<ItemGroup>
-			<SRWRRemovedReferences Include="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
-			<ReferencePath Remove="@(ReferencePath)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
-			<ReferencePathWithRefAssemblies Remove="@(SRWRRemovedReferences)" Condition="'%(SRWRRemovedReferences.Filename)%(SRWRRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
-			<ReferenceCopyLocalPaths Remove="@(SRWRRemovedReferences)" />
-			<ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="$([System.String]::Copy(%(ReferencePath.Filename)).StartsWith('System.Runtime.WindowsRuntime'))" />
-		</ItemGroup>
-	</Target>
--->
 
 	<Target Name="ReplaceTextInFile" DependsOnTargets="CsWinRTIncludeProjection" BeforeTargets="BeforeCompile;GenerateTargetFrameworkMonikerAttribute">
 		<PropertyGroup>
