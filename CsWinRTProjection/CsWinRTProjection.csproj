@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<!-- Putting it here just for the project to load -->
-		<SdkBuild Condition="$(SdkBuild) == ''">19041</SdkVersion>
+		<SdkBuild Condition="$(SdkBuild) == ''">19041</SdkBuild>
 		
 		<!-- Set target framework to .NET 6 -->
 		<TargetFramework>net6.0-windows10.0.$(SdkBuild)</TargetFramework>
