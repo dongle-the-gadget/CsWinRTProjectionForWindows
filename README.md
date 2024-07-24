@@ -1,3 +1,6 @@
+> [!WARNING]
+> This package has been deprecated, as Microsoft now ships `Windows.UI.Xaml` into their official Windows SDK projections.
+
 # CsWinRTProjectionForWindows
 
 C#/WinRT projection for the `Windows.*` namespace.
